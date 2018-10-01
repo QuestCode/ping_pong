@@ -177,6 +177,7 @@ def ai_control(ai_settings,ball,left_paddle):
             left_paddle.vel = -ai_settings.ai_paddle_vel
 
 def display_win_msg(ai_settings,screen,player):
+    ai_settings.play_winning_sound()
     screen.fill(ai_settings.bg_color)
     font = ai_settings.winner_font
     msg = font.render(player + " Wins", True, ai_settings.text_color)

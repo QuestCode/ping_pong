@@ -41,3 +41,10 @@ class Settings():
             self.winner_font = pygame.font.Font("fonts/impact.ttf", 70)
         except:
             self.winner_font = pygame.font.Font(None, 70)
+
+    def play_winning_sound(self):
+    	try:
+    		pygame.mixer.music.load('sounds/winning_bell.aiff')
+    		pygame.mixer.music.play()
+    	except :
+    		pass
