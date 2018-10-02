@@ -13,5 +13,4 @@ def run_game():
     pygame.display.set_caption('Pong')
     gf.new_game(ai_settings,screen)
 
-
 run_game()
