@@ -18,6 +18,10 @@ class Ball():
             self.vel = [random.randint(2,4),-random.randint(1,3)]
         elif direction == "Left":
             self.vel = [-random.randint(2,4),-random.randint(1,3)]
+        elif direction == "Top":
+            self.vel = [random.randint(2,4),random.randint(1,3)]
+        elif direction == "Bottom":
+            self.vel = [random.randint(2,4),-random.randint(1,3)]
 
     def draw_ball(self):
         pygame.draw.circle(self.screen, self.color, self.pos, self.radius)

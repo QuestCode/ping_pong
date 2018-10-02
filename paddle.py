@@ -30,8 +30,8 @@ class VerticalPaddle():
 	def __init__(self,ai_settings,screen, pos, score):
 		self.screen = screen
 		self.screen_width = ai_settings.screen_width
-		self.width  = ai_settings.paddle_width
-		self.height = ai_settings.paddle_height
+		self.height  = ai_settings.paddle_width
+		self.width = ai_settings.paddle_height
 		self.color  = ai_settings.paddle_color
 
 		self.pos    = pos
@@ -39,11 +39,14 @@ class VerticalPaddle():
 		self.score  = score
 
 	def draw_paddle(self):
-		pygame.draw.line(self.screen, self.color, (self.pos[1], self.pos[0] - self.width/2), (self.pos[1], self.pos[0] + self.width/2), self.height)
+		pygame.draw.line(self.screen, self.color, (self.pos[0], self.pos[1] - self.height/2), (self.pos[0], self.pos[1] + self.height/2), self.width)
 
 	def update(self):
-		if self.pos[1]+self.vel > int(self.width/2) and self.pos[1]+self.vel < int(self.screen_width-self.width/2):
-			self.pos[1]=self.pos[1]+self.vel
+		# print('ps '+str(self.pos[0]+self.vel))
+		# print(int(self.height/2))
+		# print(int(self.screen_width-self.height/2))
+		if self.pos[0]+self.vel > int(self.width/2) and self.pos[0]+self.vel < int(self.screen_width-self.width/2):
+			self.pos[0]=self.pos[0]+self.vel
 
 	def play_sound(self):
 		try:

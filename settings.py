@@ -19,8 +19,8 @@ class Settings():
         self.paddle_height = int(self.screen_height/4)
         self.paddle_color = color.snow_white
 
-        self.top_paddle_pos = [int(self.paddle_width*2),int(self.screen_width/2)]
-        self.bottom_paddle_pos = [int(self.screen_height-self.paddle_width*2),int(self.screen_width/2)]
+        self.top_paddle_pos = [int(self.screen_width/2),int(self.paddle_width*2)]
+        self.bottom_paddle_pos = [int(self.screen_width/2),int(self.screen_height-self.paddle_width*2)]
         self.left_paddle_pos = [int(self.paddle_width*2),int(self.screen_height/2)]
         self.right_paddle_pos = [int(self.screen_width-self.paddle_width*2),int(self.screen_height/2)]
 

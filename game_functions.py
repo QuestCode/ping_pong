@@ -138,7 +138,8 @@ def check_collision(ai_settings,screen,sb,ball,top_paddle,bottom_paddle,left_pad
     # print('Bottom '+str(bottom_paddle.pos[0])+' '+str(bottom_paddle.pos[1]))
     # print('Left '+str(left_paddle.pos[0])+' '+str(left_paddle.pos[1]))
     # print('Right '+str(right_paddle.pos[0])+' '+str(right_paddle.pos[1]))
-    # print('Ball '+str(ball.pos[0])+' '+str(ball.pos[1]))
+    print('Ball '+str(ball.pos[0])+' '+str(ball.pos[1]))
+    print(top_paddle.width*2 + ball.radius)
     if ball.pos[0] <= left_paddle.width*2 + ball.radius or ball.pos[0] >= ai_settings.screen_width - left_paddle.width*2 - ball.radius:
         # Check if ball made contact with a paddle
         if (ball.pos[1] in range(left_paddle.pos[1] - int(left_paddle.height/2), left_paddle.pos[1] + int(left_paddle.height/2)) and ball.pos[0] < int(ai_settings.screen_width/2)):
@@ -164,30 +165,30 @@ def check_collision(ai_settings,screen,sb,ball,top_paddle,bottom_paddle,left_pad
             else:
                 right_paddle.score +=1
                 ball.reset(ai_settings,screen,"Right")
-    elif ball.pos[1] <= top_paddle.width*2 + ball.radius or ball.pos[1] >= ai_settings.screen_width - top_paddle.width*2 - ball.radius:
-        if (ball.pos[0] in range(top_paddle.pos[0] - int(top_paddle.width/2), top_paddle.pos[0] + int(top_paddle.width/2)) and ball.pos[1] < int(ai_settings.screen_height/2)):
-            if ball.vel[1]<0:
-                ball.vel[1] =- (ball.vel[1]-1)
-            # Ball hit left paddle
-            else:
-                ball.vel[1] =- (ball.vel[1]+1)
-                top_paddle.play_sound()
-        elif (ball.pos[0] in range(bottom_paddle.pos[0] - int(bottom_paddle.width/2), bottom_paddle.pos[0] + int(bottom_paddle.width/2)) and ball.pos[1] > int(ai_settings.screen_height/2)):
-            if ball.vel[1]<0:
-                ball.vel[1] =- (ball.vel[1]-1)
-            # Ball hit left paddle
-            else:
-                ball.vel[1] =- (ball.vel[1]+1)
-                bottom_paddle.play_sound()
-
-        else:
-            # Check what side of the board the ball is on to determine who to give the point to
-            if ball.pos[0]>int(ai_settings.screen_height/2):
-                top_paddle.score +=1
-                ball.reset(ai_settings,screen,"Right")
-            else:
-                bottom_paddle.score +=1
-                ball.reset(ai_settings,screen,"Right")
+    # # Vertical Paddles
+    # elif ball.pos[1] <= top_paddle.width*2 + ball.radius or ball.pos[1] >= ai_settings.screen_height - top_paddle.width*2 - ball.radius:
+    #     if (ball.pos[0] in range(top_paddle.pos[0] - int(top_paddle.width/2), top_paddle.pos[0] + int(top_paddle.width/2)) and ball.pos[0] < int(ai_settings.screen_height/2)):
+    #         if ball.vel[1]<0:
+    #             ball.vel[1] =- (ball.vel[1]-1)
+    #         # Ball hit left paddle
+    #         else:
+    #             ball.vel[1] =- (ball.vel[1]+1)
+    #             top_paddle.play_sound()
+    #     elif (ball.pos[0] in range(bottom_paddle.pos[0] - int(bottom_paddle.width/2), bottom_paddle.pos[0] + int(bottom_paddle.width/2)) and ball.pos[0] > int(ai_settings.screen_height/2)):
+    #         if ball.vel[1]<0:
+    #             ball.vel[1] =- (ball.vel[1]-1)
+    #         # Ball hit left paddle
+    #         else:
+    #             ball.vel[1] =- (ball.vel[1]+1)
+    #             bottom_paddle.play_sound()
+    #     else:
+    #         # Check what side of the board the ball is on to determine who to give the point to
+    #         if ball.pos[0]>int(ai_settings.screen_height/2):
+    #             top_paddle.score +=1
+    #             ball.reset(ai_settings,screen,"Top")
+    #         else:
+    #             bottom_paddle.score +=1
+    #             ball.reset(ai_settings,screen,"Bottom")
 
 def check_play_button(ai_settings,screen,stats,sb,ball,top_paddle,bottom_paddle,left_paddle,right_paddle,play_button,mouse_x,mouse_y):
     """Start a new game when the player clicks Play."""
@@ -208,7 +209,6 @@ def start_game(ai_settings,stats,sb):
 
 def hori_ai_control(ai_settings,ball,left_paddle):
     # If ball is moving away from paddle, center bat
-    # print(left_paddle.pos[1])
     if ball.vel[0] > 0:
         if left_paddle.pos[1] < int(ai_settings.screen_height/2):
             left_paddle.vel = ai_settings.ai_paddle_vel
@@ -223,16 +223,16 @@ def hori_ai_control(ai_settings,ball,left_paddle):
 
 def vert_ai_control(ai_settings,ball,paddle):
     # If ball is moving away from paddle, center bat
-    if ball.vel[0] > 0:
-        if paddle.pos[1] < int(ai_settings.screen_width/2):
+    if ball.vel[1] > 0:
+        if paddle.pos[0] < int(ai_settings.screen_width/2):
             paddle.vel = ai_settings.ai_paddle_vel
-        elif paddle.pos[1] > int(ai_settings.screen_width/2):
+        elif paddle.pos[0] > int(ai_settings.screen_width/2):
             paddle.vel = -ai_settings.ai_paddle_vel
     # if ball moving towards paddle, track its movement.
-    elif ball.vel[0] < 0:
-        if paddle.pos[1] < ball.pos[1]:
+    elif ball.vel[1] < 0:
+        if paddle.pos[0] < ball.pos[0]:
             paddle.vel = ai_settings.ai_paddle_vel
-        else :
+        else:
             paddle.vel = -ai_settings.ai_paddle_vel
 
 def display_win_msg(ai_settings,screen,player):
